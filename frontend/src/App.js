@@ -1,3 +1,4 @@
+// ===================================================================================
 import { useState } from 'react';
 import Dashboard from './Dashboard';
 import Leaderboard from './Leaderboard';
@@ -13,8 +14,8 @@ const LeaderboardIcon = () => (
 );
 
 const navItems = [
-    { name: 'Dashboard', page: 'dashboard', icon: <DashboardIcon /> },
-    { name: 'Leaderboard', page: 'leaderboard', icon: <LeaderboardIcon /> }
+    { name: 'Dashboard', page: 'dashboard', Icon: DashboardIcon },
+    { name: 'Leaderboard', page: 'leaderboard', Icon: LeaderboardIcon }
 ];
 
 function App() {
@@ -31,20 +32,19 @@ function App() {
 
   return (
     <div className="flex h-screen bg-gray-100 font-sans">
-      {/* Sidebar Navigation */}
       <nav className="w-64 bg-gray-800 text-white flex flex-col p-4 transition-all">
         <div className="text-center pb-4 border-b border-gray-700">
           <h2 className="text-2xl font-semibold">Intern Portal</h2>
         </div>
         <ul className="mt-6 flex-grow space-y-2">
-            {navItems.map((item) => (
+            {navItems.map(({ name, page, Icon }) => (
                  <li
-                    key={item.name}
-                    onClick={() => navigateTo(item.page)}
-                    className={`flex items-center px-4 py-3 rounded-md cursor-pointer transition-all group ${currentPage === item.page ? 'bg-blue-600 shadow-lg' : 'hover:bg-gray-700'}`}
+                    key={name}
+                    onClick={() => navigateTo(page)}
+                    className={`flex items-center px-4 py-3 rounded-md cursor-pointer transition-all group ${currentPage === page ? 'bg-blue-600 shadow-lg' : 'hover:bg-gray-700'}`}
                 >
-                    {item.icon}
-                    <span className="font-medium">{item.name}</span>
+                    <Icon />
+                    <span className="font-medium">{name}</span>
                 </li>
             ))}
         </ul>
@@ -58,7 +58,6 @@ function App() {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="flex-1 p-6 sm:p-10 overflow-y-auto">
         {currentPage === 'dashboard' && <Dashboard />}
         {currentPage === 'leaderboard' && <Leaderboard />}
